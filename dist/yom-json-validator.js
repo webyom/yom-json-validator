@@ -88,13 +88,15 @@ var $k = {};
 
 function validateArray(scheme, data, path) {
   var itemScheme;
+  var oScheme = scheme;
   if (Array.isArray(scheme)) {
     itemScheme = scheme[0];
     scheme = {};
+    scheme[$k.nullable] = oScheme[1] === null;
   } else {
     itemScheme = scheme[$k.item];
   }
-  if (itemScheme === undefined) {
+  if (itemScheme == null) {
     throw new Error(ERR_TITLE + 'scheme of array item must not be undefined. path: ' + path);
   }
   if (data == null) {
@@ -144,10 +146,12 @@ function validateObject(scheme, data, path) {
 }
 
 function validateString(scheme, data, path) {
+  var oScheme = scheme;
   if (typeof scheme == 'string') {
     scheme = {};
+    scheme[$k.nullable] = oScheme === '';
   }
-  if (data === undefined) {
+  if (data == null) {
     if (scheme[$k.default]) {
       if (typeof scheme[$k.default] == 'string') {
         return scheme[$k.default];
@@ -180,10 +184,12 @@ function validateString(scheme, data, path) {
 }
 
 function validateNumber(scheme, data, path) {
+  var oScheme = scheme;
   if (typeof scheme == 'number') {
     scheme = {};
+    scheme[$k.nullable] = oScheme === 0;
   }
-  if (data === undefined) {
+  if (data == null) {
     if (scheme[$k.default]) {
       if (typeof scheme[$k.default] == 'number') {
         return scheme[$k.default];
@@ -216,10 +222,12 @@ function validateNumber(scheme, data, path) {
 }
 
 function validateBoolean(scheme, data, path) {
+  var oScheme = scheme;
   if (typeof scheme == 'boolean') {
     scheme = {};
+    scheme[$k.nullable] = oScheme === false;
   }
-  if (data === undefined) {
+  if (data == null) {
     if (scheme[$k.default]) {
       if (typeof scheme[$k.default] == 'boolean') {
         return scheme[$k.default];

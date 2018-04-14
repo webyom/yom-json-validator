@@ -2,7 +2,8 @@ var scheme = {
   type: {
     $type: 'string',
     $set: ['success', 'error'],
-    $default: 'success'
+    $default: 'success',
+    $nullable: false
   },
   data: {
     $type: 'array',
@@ -13,14 +14,16 @@ var scheme = {
       $type: 'object',
       $nullable: false,
       $value: {
-        name: '',
+        nick: '', // nullable
+        name: '1', // not nullable
         title: {
           $type: 'string',
           $minLength: 1,
           $maxLength: 20,
           $default: 'manager'
         },
-        class: 1,
+        height: 0, // nullable
+        class: 1, // not nullable
         grade: {
           $type: 'number',
           $set: [1, 2, 3],
@@ -32,12 +35,15 @@ var scheme = {
           $max: 150,
           $default: 1
         },
-        vip: true,
+        vip: false, // nullable
+        member: true, // not nullable
         admin: {
           $type: 'boolean',
-          $default: false
+          $default: false,
+          $nullable: false
         },
-        skills: [''],
+        skills: ['', null], // nullable
+        hobbits: [''], // not nullable
         relatives: [{
           name: ''
         }]
