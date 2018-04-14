@@ -1,0 +1,33 @@
+{
+  "name": "yom-json-validator",
+  "version": "0.1.0",
+  "description": "A json validator.",
+  "keywords": [
+    "json",
+    "validator"
+  ],
+  "scripts": {
+    "build": "./node_modules/.bin/webpack"
+  },
+  "homepage": "https://github.com/webyom/yom-json-validator",
+  "author": {
+    "name": "Gary Wang",
+    "email": "webyom@gmail.com",
+    "url": "http://webyom.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webyom/yom-json-validator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webyom/yom-json-validator/issues"
+  },
+  "license": "MIT",
+  "main": "dist/yom-json-validator.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "webpack": "^2.3.3"
+  }
+}
