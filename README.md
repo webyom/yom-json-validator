@@ -78,7 +78,7 @@ YomJsonValidator.validate(scheme, data);
 
 ## Returns
 
-``` json
+``` javascript
 {
   type: 'success',
   data: [{
