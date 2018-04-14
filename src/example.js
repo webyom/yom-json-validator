@@ -57,10 +57,12 @@ var data = {
   data: [{
     name: 'Gary',
     class: 1,
-    vip: true,
+    member: true,
     admin: false,
-    skills: [],
-    relatives: []
+    hobbits: [],
+    relatives: [],
+    some: '',
+    other: 1
   }]
 };
 
