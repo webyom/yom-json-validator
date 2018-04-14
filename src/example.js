@@ -1,4 +1,4 @@
-var usersScheme = {
+var scheme = {
   type: {
     $type: 'string',
     $set: ['success', 'error'],
@@ -46,4 +46,19 @@ var usersScheme = {
   }
 };
 
-module.exports = usersScheme;
+var data = {
+  type: 'success',
+  data: [{
+    name: 'Gary',
+    class: 1,
+    vip: true,
+    admin: false,
+    skills: [],
+    relatives: []
+  }]
+};
+
+module.exports = {
+  scheme: scheme,
+  data: data
+};
