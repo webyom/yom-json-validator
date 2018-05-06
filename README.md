@@ -1,11 +1,11 @@
 # yom-json-validator
 
-Validate json with scheme, and strip properties not defined in scheme.
+Validate json with schema, and strip properties not defined in schema.
 
 ## Run code
 
 ``` javascript
-var scheme = {
+var schema = {
   type: {
     $type: 'string',
     $set: ['success', 'error'],
@@ -21,8 +21,14 @@ var scheme = {
       $type: 'object',
       $nullable: false,
       $value: {
-        nick: '', // nullable
-        name: '1', // not nullable
+        firstName: '1', // not nullable
+        lastName: '', // nullable
+        fullName: {
+          $type: 'validator',
+          $validator: function (opt) {
+            return opt.value || opt.getValueByPath('./firstName') + ' ' + opt.getValueByPath('./lastName');
+          }
+        },
         title: {
           $type: 'string',
           $minLength: 1,
@@ -62,7 +68,8 @@ var scheme = {
 var data = {
   type: 'success',
   data: [{
-    name: 'Gary',
+    firstName: 'Gary',
+    lastName: 'Wang',
     class: 1,
     member: true,
     admin: false,
@@ -73,7 +80,7 @@ var data = {
   }]
 };
 
-YomJsonValidator.validate(scheme, data);
+YomJsonValidator.validate(schema, data);
 ```
 
 ## Returns
@@ -82,7 +89,9 @@ YomJsonValidator.validate(scheme, data);
 {
   type: 'success',
   data: [{
-    name: 'Gary',
+    firstName: 'Gary',
+    lastName: 'Wang',
+    fullName: 'Gary Wang',
     class: 1,
     member: true,
     admin: false,

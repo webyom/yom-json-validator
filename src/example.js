@@ -1,4 +1,6 @@
-var scheme = {
+var YomJsonValidator = require('./yom-json-validator');
+
+var schema = {
   type: {
     $type: 'string',
     $set: ['success', 'error'],
@@ -14,8 +16,14 @@ var scheme = {
       $type: 'object',
       $nullable: false,
       $value: {
-        nick: '', // nullable
-        name: '1', // not nullable
+        firstName: '1', // not nullable
+        lastName: '', // nullable
+        fullName: {
+          $type: 'validator',
+          $validator: function (opt) {
+            return opt.value || opt.getValueByPath('./firstName') + ' ' + opt.getValueByPath('./lastName');
+          }
+        },
         title: {
           $type: 'string',
           $minLength: 1,
@@ -55,7 +63,19 @@ var scheme = {
 var data = {
   type: 'success',
   data: [{
-    name: 'Gary',
+    firstName: 'Gary',
+    lastName: 'Wang',
+    class: 1,
+    member: true,
+    admin: false,
+    hobbits: [],
+    relatives: [],
+    some: '',
+    other: 1
+  }, {
+    firstName: 'Jack',
+    lastName: 'Li',
+    fullName: 'Jack',
     class: 1,
     member: true,
     admin: false,
@@ -66,7 +86,4 @@ var data = {
   }]
 };
 
-module.exports = {
-  scheme: scheme,
-  data: data
-};
+console.log(YomJsonValidator.validate(schema, data));
