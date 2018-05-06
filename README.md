@@ -24,7 +24,7 @@ var schema = {
         firstName: '1', // not nullable
         lastName: '', // nullable
         fullName: {
-          $type: 'validator',
+          $type: 'dynamic',
           $validator: function (opt) {
             return opt.value || opt.getValueByPath('./firstName') + ' ' + opt.getValueByPath('./lastName');
           }

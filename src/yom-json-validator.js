@@ -1,6 +1,6 @@
 var ERR_TITLE = 'yom-json-validator: ';
 var KEY_WORDS = ['type', 'nullable', 'default', 'set', 'max', 'min', 'maxLength', 'minLength', 'item', 'value', 'validator'];
-var TYPES = ['validator', 'array', 'object', 'string', 'number', 'boolean'];
+var TYPES = ['dynamic', 'array', 'object', 'string', 'number', 'boolean'];
 
 var $k = {};
 
@@ -226,10 +226,10 @@ function validate(schema, data, path, rootData) {
       return validateArray(schema, data, path, rootData);
     } else if (schema[$k.type]) {
       type = schema[$k.type];
-      if (type == 'validator') {
+      if (type == 'dynamic') {
         validator = schema[$k.validator];
         if (typeof validator != 'function') {
-          throw new Error(ERR_TITLE + $k.validator + ' not defined in validator type. path: ' + path);
+          throw new Error(ERR_TITLE + $k.validator + ' function not defined in validator type. path: ' + path);
         }
         return validator({
           value: data,
